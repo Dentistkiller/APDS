@@ -17,7 +17,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-  
+
   sonarqube:
     working_directory: ~/build
     docker:
@@ -50,3 +50,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - sonarqube
