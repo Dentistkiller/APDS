@@ -1,0 +1,3 @@
+mongo login 
+un yusparuk
+pass TAL9z3D7YC2OAKm5
