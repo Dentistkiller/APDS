@@ -3,6 +3,7 @@ import cors from "cors";
 import "./loadEnvironment.mjs";
 import https from "https";
 import path from "path";
+import http from "http";
 import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
@@ -39,8 +40,9 @@ app.use((reg,res,next)=>
 
 app.use("/record", records);
 app.use("/user", users);
+app.route("/user", users);
 
-let server = https.createServer(options,app)
+let server = http.createServer(app)
 
 app.get('/',(req,res)=>{
   res.send('HTTPS in ExpressJS')
@@ -49,6 +51,8 @@ app.get('/',(req,res)=>{
 app.get('/record',(req,res)=>{
   res.send('HTTPS in ExpressJS YASSSSSS')
 })
+
+
 
 //start the Express server
 server.listen(PORT, () => {
