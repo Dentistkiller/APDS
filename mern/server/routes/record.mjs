@@ -60,4 +60,56 @@ router.delete("/:id", async (req, res) => {
   res.send(result).status(200);
 });
 
+
+// This section will help you create a new record.
+router.post("/post", async (req, res) => {
+  let newDocument = {
+					Caption: req.body.Caption,
+					Body: req.body.Body,
+					PostedBy: req.body.PostedBy,
+					Photo: req.body.Photo.toString("base64"),
+  };
+  let collection = await db.collection("records");
+  let result = await collection.insertOne(newDocument);
+  res.send(result).status(204);
+});
+
+
+// This section will help you create a new post
+router.post("/post", async (req, res) => {
+  try {
+    const { username, caption, photo } = req.body;
+
+    // Validate the input
+    if (!username || !caption || !photo) {
+      return res.status(400).send("Bad Request: Missing username, caption, or photo");
+    }
+
+    const newPost = {
+      username,
+      caption,
+      photo, // Storing the photo as a base64 string
+      createdAt: new Date(),
+    };
+
+    const collection = await db.collection("posts");
+    const result = await collection.insertOne(newPost);
+    
+    return res.status(201).send(result);
+  } catch (error) {
+    console.error("Error creating post:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 export default router;
